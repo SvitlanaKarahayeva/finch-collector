@@ -5,15 +5,22 @@
 <h1>Finch List</h1>
 
 {% for finch in finches %}
-<a href="{% url 'detail' finch.id %}">
-  <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ finch.breed }}</span>
-      <p>Description: {{ finch.description }}</p>
-      <p>Size: {{ finch.size }}</p>
+<div class="col s12 m7">
+    <div class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+          <span class="card-title">{{ finch.breed }}</span>
+          <p><b>Description:</b> {{ finch.description }}</p>
+          <p><b>Size:</b> {{ finch.size }}cm</p>
+        </div>
+        <div class="card-action"> 
+          <a href="{% url 'detail' finch.id %}">Check <span class="blue-text">{{ finch.breed }}</span></a> 
+        </div>
+      </div>
     </div>
-  </div>
-</a>
+</div>
 {% endfor %}
 
 {% endblock %}
+
+  

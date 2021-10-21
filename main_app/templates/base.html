@@ -15,11 +15,12 @@
     <nav class="green">
       <div class="nav-wrapper">
         <ul>
-          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Finch Collector &#x1F425;</a></li>
+          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Finch Collector &#128038;</a></li>
         </ul>
         <ul class="right">
-          <li><a href="/about">About</a></li>
-          <li><a href="/finches">View All Finches</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'finches_create' %}">Add A Finch</a></li>
+          <li><a href="{% url 'finches_index' %}">View All Finches</a></li>
         </ul>
       </div>
     </nav>
