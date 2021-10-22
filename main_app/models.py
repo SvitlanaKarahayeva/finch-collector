@@ -13,6 +13,13 @@ FOODS = (
     (6, 'Shelled And Cracked Corn')
 )
 
+class Park(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 class Finch(models.Model):
     breed = models.CharField(max_length=100)
     description = models.TextField(max_length=500)
