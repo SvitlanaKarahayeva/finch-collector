@@ -1,16 +1,61 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ finch.breed }}</span>
-      <p><b>Description:</b> {{ finch.description }}</p>
-      <p><b>Size:</b> {{ finch.size }}cm</p>
+
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+              <span class="card-title">{{ finch.breed }}</span>
+              <p><b>Description:</b> {{ finch.description }}</p>
+              <p><b>Size:</b> {{ finch.size }}cm</p>
+            </div>
+            <div class="card-action">
+              <a class="green-text" href="{% url 'finches_update' finch.id %}">Edit</a>
+              <a class="red-text" href="{% url 'finches_delete' finch.id %}">Delete</a>
+            </div>
+        </div>
     </div>
-    <div class="card-action">
-      <a class="green-text" href="{% url 'finches_update' finch.id %}">Edit</a>
-      <a class="red-text" href="{% url 'finches_delete' finch.id %}">Delete</a>
+        
+    <div class="col s6">
+        <!-- Feedign form -->
+        <form action="{% url 'add_feeding' finch.id %}" method="POST">
+            {% csrf_token %}
+            {{ feeding_form.as_p }}
+            <input type="submit" value="Add Feeding" class="btn">
+        </form>
+        <br><hr/>
+        <!-- Table of feeding schedule -->
+        <table class="striped centered">
+            <thead>
+                <tr><th>Date</th><th>Meal</th></tr>
+            </thead>
+            <tbody>
+            {% for feeding in finch.feeding_set.all %}
+             <tr>
+             <td>{{feeding.date}}</td>
+                <td>{{feeding.get_food_display}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <hr>
     </div>
+
 </div>
+
+<script>
+    var dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+      format: 'yyyy-mm-dd',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      autoClose: true
+    });
+
+    // add additional JS to initialize select below
+   var selectEl = document.getElementById('id_food');
+   M.FormSelect.init(selectEl);
+</script>
 
 {% endblock %}
