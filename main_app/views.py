@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls.base import is_valid_path
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Finch
+from django.views.generic import ListView
+from .models import Finch, Park
 from .forms import FeedingForm
 
 # class Finch:
@@ -54,3 +56,23 @@ class FinchUpdate(UpdateView):
 class FinchDelete(DeleteView):
     model = Finch
     success_url = '/finches/'
+
+
+#Park views
+class ParkList(ListView):
+    model = Park
+
+class ParkDetail(DetailView):
+    model = Park
+
+class ParkCreate(CreateView):
+    model = Park
+    fields = '__all__'
+
+class ParkUpdate(UpdateView):
+    model = Park
+    fields = '__all__'
+
+class ParkDelete(DeleteView):
+    model = Park
+    success_url = '/parks/'

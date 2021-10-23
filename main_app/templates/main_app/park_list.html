@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Park list</h1>
+{% for park in park_list %}
+    <div class="card">
+        <div class="card-content">
+            <a href="{% url 'parks_detail' park.id %}">
+                <span class="card-title">{{ park.name }}</span>
+            </a>    
+            <p>Location: {{ park.address }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
