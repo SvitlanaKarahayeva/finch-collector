@@ -11,6 +11,9 @@ urlpatterns = [
     path('finches/<int:pk>/update/', views.FinchUpdate.as_view(), name='finches_update'),
     path('finches/<int:pk>/delete/', views.FinchDelete.as_view(), name='finches_delete'),
     path('finches/<int:finch_id>/add_feeding/', views.add_feeding, name='add_feeding'),
+    #Finch-park associate Many-to-Many
+    path('finches/<int:finch_id>/assoc_park/<int:park_id>', views.assoc_park, name='assoc_park'),
+    path('finches/<int:finch_id>/unassoc_park/<int:park_id>', views.unassoc_park, name='unassoc_park'),
     #parks paths
     path('parks/', views.ParkList.as_view(), name='parks_index'),
     path('parks/<int:pk>', views.ParkDetail.as_view(), name='parks_detail'),

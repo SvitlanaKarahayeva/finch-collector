@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.urls.base import is_valid_path
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView
@@ -31,8 +30,18 @@ def finches_index(request):
 
 def finches_detail(request, finch_id):
     finch = Finch.objects.get(id=finch_id)
+    park_finch_doesnt_have = Park.objects.exclude(id__in = finch.parks.all().values_list('id'))
     feeding_form = FeedingForm()
-    return render(request, 'finches/detail.html', {'finch': finch, 'feeding_form': feeding_form})
+    return render(request, 'finches/detail.html', {'finch': finch, 'feeding_form': feeding_form, 
+    'parks': park_finch_doesnt_have})
+
+def assoc_park(request, finch_id, park_id):
+    Finch.objects.get(id=finch_id).parks.add(park_id)    
+    return redirect('detail', finch_id=finch_id)
+
+def unassoc_park(request, finch_id, park_id):
+    Finch.objects.get(id=finch_id).parks.remove(park_id)    
+    return redirect('detail', finch_id=finch_id)
 
 #add_feeding function
 
