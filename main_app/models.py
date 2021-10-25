@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.fields import IntegerField
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -28,6 +29,7 @@ class Finch(models.Model):
     description = models.TextField(max_length=500)
     size = models.IntegerField()
     parks = models.ManyToManyField(Park)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.breed
@@ -48,3 +50,10 @@ class Feeding(models.Model):
 
     class Meta:
         ordering = ['-date']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    finch = models.ForeignKey(Finch, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for finch_id: {self.finch_id} @{self.url}"
